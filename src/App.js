@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 function App() {
   const [data, setData] = useState([]);
+  const [url, setUrl] = useState("");
   const [blockBots, setBlockBots] = useState(true);
   const [blockSuspicious, setBlockSuspicious] = useState(true);
 
@@ -52,9 +53,18 @@ function App() {
       <div style={{ padding: "20px" }}>
         <h2>📢 Create Campaign</h2>
 
-        <input placeholder="Enter Website URL" style={{ padding: "8px", width: "300px" }} />
-        
-        <p style={{ marginTop: "10px" }}>Integration Code:</p>
+        <input 
+          placeholder="Enter Website URL"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          style={{ padding: "8px", width: "300px" }}
+        />
+
+        <p style={{ marginTop: "10px" }}>
+          Tracking for: <strong>{url || "No URL entered"}</strong>
+        </p>
+
+        <p>Integration Code:</p>
         <code>
           {`<script>trackVisitor()</script>`}
         </code>
@@ -89,7 +99,7 @@ function App() {
       <div style={{ padding: "20px" }}>
         <h2>🚦 Simulate Traffic</h2>
 
-        <button onClick={generateTraffic}>
+        <button onClick={generateTraffic} style={{ padding: "10px" }}>
           Generate Visitors
         </button>
 
