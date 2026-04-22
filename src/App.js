@@ -5,17 +5,27 @@ function App() {
 
   const generateTraffic = () => {
     const agents = ["Chrome", "Firefox", "Googlebot", "HeadlessChrome"];
+    const countries = ["India", "USA", "Germany", "Singapore"];
+    const ips = ["192.168.1.1", "10.0.0.2", "172.16.0.5", "8.8.8.8"];
+
     let temp = [];
 
     for (let i = 0; i < 10; i++) {
       let ua = agents[Math.floor(Math.random() * agents.length)];
+      let country = countries[Math.floor(Math.random() * countries.length)];
+      let ip = ips[Math.floor(Math.random() * ips.length)];
+
       let type = "Human";
 
       if (ua.toLowerCase().includes("bot")) type = "Bot";
       else if (ua.includes("Headless")) type = "Suspicious";
-      else type = "Human";
 
-      temp.push({ userAgent: ua, type });
+      temp.push({
+        userAgent: ua,
+        ip: ip,
+        country: country,
+        type: type
+      });
     }
 
     setData(temp);
@@ -28,17 +38,20 @@ function App() {
   return (
     <div style={{ fontFamily: "Arial" }}>
 
-      {/* Landing Page Section */}
+      {/* Landing Page */}
       <div style={{ padding: "20px", background: "#282c34", color: "white" }}>
         <h1>Welcome to My Website</h1>
         <p>This is a sample landing page with integrated bot detection system.</p>
       </div>
 
-      {/* Bot Detection Section */}
+      {/* Bot Detection Dashboard */}
       <div style={{ padding: "20px" }}>
         <h2>🚦 Traffic Monitoring System</h2>
 
-        <button onClick={generateTraffic} style={{ padding: "10px", marginBottom: "10px" }}>
+        <button 
+          onClick={generateTraffic} 
+          style={{ padding: "10px", marginBottom: "10px" }}
+        >
           Simulate Traffic
         </button>
 
@@ -51,7 +64,7 @@ function App() {
         <ul>
           {data.map((d, i) => (
             <li key={i}>
-              {d.userAgent} → {d.type}
+              {d.userAgent} | {d.ip} | {d.country} → {d.type}
             </li>
           ))}
         </ul>
@@ -60,7 +73,7 @@ function App() {
         <ul>
           {humans.map((d, i) => (
             <li key={i}>
-              {d.userAgent}
+              {d.userAgent} | {d.ip} | {d.country}
             </li>
           ))}
         </ul>
