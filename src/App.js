@@ -13,6 +13,7 @@ function App() {
 
       if (ua.toLowerCase().includes("bot")) type = "Bot";
       else if (ua.includes("Headless")) type = "Suspicious";
+      else type = "Human";
 
       temp.push({ userAgent: ua, type });
     }
@@ -25,41 +26,52 @@ function App() {
   const suspicious = data.filter(d => d.type === "Suspicious");
 
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <h1>🚦 Bot Detection Dashboard</h1>
+    <div style={{ fontFamily: "Arial" }}>
 
-      <button onClick={generateTraffic}>
-        Simulate Traffic
-      </button>
+      {/* Landing Page Section */}
+      <div style={{ padding: "20px", background: "#282c34", color: "white" }}>
+        <h1>Welcome to My Website</h1>
+        <p>This is a sample landing page with integrated bot detection system.</p>
+      </div>
 
-      <h3>Total: {data.length}</h3>
-      <h3>Humans: {humans.length}</h3>
-      <h3>Bots: {bots.length}</h3>
-      <h3>Suspicious: {suspicious.length}</h3>
+      {/* Bot Detection Section */}
+      <div style={{ padding: "20px" }}>
+        <h2>🚦 Traffic Monitoring System</h2>
 
-      <h2>All Traffic</h2>
-      <ul>
-        {data.map((d, i) => (
-          <li key={i}>
-            {d.userAgent} → {d.type}
-          </li>
-        ))}
-      </ul>
+        <button onClick={generateTraffic} style={{ padding: "10px", marginBottom: "10px" }}>
+          Simulate Traffic
+        </button>
 
-      <h2>Filtered (Humans Only)</h2>
-      <ul>
-        {humans.map((d, i) => (
-          <li key={i}>
-            {d.userAgent}
-          </li>
-        ))}
-      </ul>
+        <h3>Total Visitors: {data.length}</h3>
+        <h3>Humans: {humans.length}</h3>
+        <h3>Bots: {bots.length}</h3>
+        <h3>Suspicious: {suspicious.length}</h3>
 
-      {bots.length > 0 && (
-        <p style={{ color: "red" }}>
-          Bots detected → would be redirected/blocked
-        </p>
-      )}
+        <h2>All Traffic</h2>
+        <ul>
+          {data.map((d, i) => (
+            <li key={i}>
+              {d.userAgent} → {d.type}
+            </li>
+          ))}
+        </ul>
+
+        <h2>Filtered Users (Humans Only)</h2>
+        <ul>
+          {humans.map((d, i) => (
+            <li key={i}>
+              {d.userAgent}
+            </li>
+          ))}
+        </ul>
+
+        {bots.length > 0 && (
+          <p style={{ color: "red", marginTop: "10px" }}>
+            Bots detected → filtered / would be redirected
+          </p>
+        )}
+      </div>
+
     </div>
   );
 }
