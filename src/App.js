@@ -40,16 +40,16 @@ function App() {
     return true;
   });
 
-  return (
+    return (
     <div style={{ fontFamily: "Arial" }}>
 
-      {/* Landing Page */}
+      {/* Landing */}
       <div style={{ padding: "20px", background: "#282c34", color: "white" }}>
-        <h1>Traffic Monitoring Dashboard</h1>
-        <p>Simulate and filter website visitors using bot detection logic.</p>
+        <h1>Cloaking Dashboard</h1>
+        <p>Simulate campaign → detection → filtering → routing</p>
       </div>
 
-      {/* Campaign Setup */}
+      {/* Campaign */}
       <div style={{ padding: "20px" }}>
         <h2>📢 Create Campaign</h2>
 
@@ -61,13 +61,11 @@ function App() {
         />
 
         <p style={{ marginTop: "10px" }}>
-          Tracking for: <strong>{url || "No URL entered"}</strong>
+          Tracking: <strong>{url || "No URL entered"}</strong>
         </p>
 
         <p>Integration Code:</p>
-        <code>
-          {`<script>trackVisitor()</script>`}
-        </code>
+        <code>{`<script>trackVisitor()</script>`}</code>
       </div>
 
       {/* Conditions */}
@@ -76,7 +74,7 @@ function App() {
 
         <label>
           <input 
-            type="checkbox" 
+            type="checkbox"
             checked={blockBots}
             onChange={() => setBlockBots(!blockBots)}
           />
@@ -87,7 +85,7 @@ function App() {
 
         <label>
           <input 
-            type="checkbox" 
+            type="checkbox"
             checked={blockSuspicious}
             onChange={() => setBlockSuspicious(!blockSuspicious)}
           />
@@ -95,7 +93,7 @@ function App() {
         </label>
       </div>
 
-      {/* Traffic Simulation */}
+      {/* Traffic */}
       <div style={{ padding: "20px" }}>
         <h2>🚦 Simulate Traffic</h2>
 
@@ -128,6 +126,36 @@ function App() {
           <p style={{ color: "red" }}>
             Some users were blocked / redirected based on conditions
           </p>
+        )}
+
+        {/* CLOAKING SIMULATION */}
+        <h2>🔁 Simulated Visitor Experience</h2>
+
+        {data.length > 0 && (
+          <div style={{ marginTop: "10px", padding: "10px", border: "1px solid gray" }}>
+
+            {data[0].type === "Human" && (
+              <div>
+                <h3>💰 Money Page</h3>
+                <p>This is the real content shown to normal users.</p>
+              </div>
+            )}
+
+            {data[0].type === "Bot" && (
+              <div>
+                <h3>🛡️ Safe Page</h3>
+                <p>Bot detected — redirected to safe content.</p>
+              </div>
+            )}
+
+            {data[0].type === "Suspicious" && (
+              <div>
+                <h3>⛔ Blocked</h3>
+                <p>Access denied due to suspicious activity.</p>
+              </div>
+            )}
+
+          </div>
         )}
       </div>
 
